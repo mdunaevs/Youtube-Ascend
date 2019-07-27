@@ -8,24 +8,7 @@
 
 import UIKit
 
-class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
-        cell.imageView.image = UIImage(named: imageNames[indexPath.item])
-//        let testLabel = UILabel(frame: .zero)
-//        testLabel.text = "Home"
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return  CGSize(width: frame.width / 4, height: frame.height)
-    }
+class MenuBar: UIView, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -36,24 +19,37 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor(red: 230/255, green: 32/255, blue: 32/255, alpha: 1)
-        cv.dataSource = self
-        cv.delegate = self
         return cv
     }()
     
-    let cellId = "cellId"
-    let imageNames = ["home (1)", "friend", "home (1)", "home (1)"]
+    let headerTaskLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Tasks"
+        label.textColor = UIColor.white
+        //label.backgroundColor = UIColor.blue
+        label.font = label.font.withSize(30)
+        return label
+    }()
+    
+    var overviewLabel: UILabel = {
+        let label = UILabel()
+        label.text = "overview"
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 11)
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionView.register(MenuCell.self, forCellWithReuseIdentifier: cellId)
-        
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        
-        
+        collectionView.addSubview(headerTaskLabel)
+        collectionView.addSubview(overviewLabel)
+        addConstraintsWithFormat(format: "H:|-14-[v0(150)]-20-[v1(50)]", views: headerTaskLabel, overviewLabel)
+        addConstraintsWithFormat(format: "V:|[v0(50)]|", views: headerTaskLabel)
+        addConstraintsWithFormat(format: "V:|[v0(20)]", views: overviewLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -13,9 +13,11 @@
 		50E52F4622E8BED1002BA4FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50E52F4422E8BED1002BA4FF /* LaunchScreen.storyboard */; };
 		50E52F5122E8BED1002BA4FF /* YoutubeHomeDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52F5022E8BED1002BA4FF /* YoutubeHomeDemoTests.swift */; };
 		50E52F5C22E8BED1002BA4FF /* YoutubeHomeDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52F5B22E8BED1002BA4FF /* YoutubeHomeDemoUITests.swift */; };
-		50E52F6A22E8C094002BA4FF /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52F6922E8C094002BA4FF /* VideoCell.swift */; };
+		50E52F6A22E8C094002BA4FF /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52F6922E8C094002BA4FF /* TaskCell.swift */; };
 		50E52F6F22E8CF2D002BA4FF /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52F6E22E8CF2D002BA4FF /* MenuBar.swift */; };
 		50E52F7122E8F060002BA4FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50E52F7022E8F060002BA4FF /* Assets.xcassets */; };
+		50E52FAF22EA9F30002BA4FF /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52FAE22EA9F30002BA4FF /* Task.swift */; };
+		50E52FB122EA9F3D002BA4FF /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52FB022EA9F3D002BA4FF /* TaskList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,9 +50,11 @@
 		50E52F5722E8BED1002BA4FF /* YoutubeHomeDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YoutubeHomeDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E52F5B22E8BED1002BA4FF /* YoutubeHomeDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeHomeDemoUITests.swift; sourceTree = "<group>"; };
 		50E52F5D22E8BED1002BA4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50E52F6922E8C094002BA4FF /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		50E52F6922E8C094002BA4FF /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		50E52F6E22E8CF2D002BA4FF /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		50E52F7022E8F060002BA4FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		50E52FAE22EA9F30002BA4FF /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		50E52FB022EA9F3D002BA4FF /* TaskList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +108,9 @@
 				50E52F3B22E8BED0002BA4FF /* AppDelegate.swift */,
 				50E52F3D22E8BED0002BA4FF /* HomeController.swift */,
 				50E52F6E22E8CF2D002BA4FF /* MenuBar.swift */,
-				50E52F6922E8C094002BA4FF /* VideoCell.swift */,
+				50E52F6922E8C094002BA4FF /* TaskCell.swift */,
+				50E52FAE22EA9F30002BA4FF /* Task.swift */,
+				50E52FB022EA9F3D002BA4FF /* TaskList.swift */,
 				50E52F7022E8F060002BA4FF /* Assets.xcassets */,
 				50E52F3F22E8BED0002BA4FF /* Main.storyboard */,
 				50E52F4422E8BED1002BA4FF /* LaunchScreen.storyboard */,
@@ -262,10 +268,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E52FB122EA9F3D002BA4FF /* TaskList.swift in Sources */,
 				50E52F3E22E8BED0002BA4FF /* HomeController.swift in Sources */,
 				50E52F3C22E8BED0002BA4FF /* AppDelegate.swift in Sources */,
+				50E52FAF22EA9F30002BA4FF /* Task.swift in Sources */,
 				50E52F6F22E8CF2D002BA4FF /* MenuBar.swift in Sources */,
-				50E52F6A22E8C094002BA4FF /* VideoCell.swift in Sources */,
+				50E52F6A22E8C094002BA4FF /* TaskCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
