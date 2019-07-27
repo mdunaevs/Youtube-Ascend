@@ -1,5 +1,5 @@
 //
-//  TaskCell.swift
+//  VideoCell.swift
 //  YoutubeHomeDemo
 //
 //  Created by Max Dunaevschi on 7/24/19.

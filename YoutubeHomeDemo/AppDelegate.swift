@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // for collection view screen
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         let layout = UICollectionViewFlowLayout()
@@ -26,6 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(red: 230/255, green: 32/255, blue: 32/255, alpha: 1)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+       /* window = UIWindow()
+        window?.makeKeyAndVisible()
+        let navController = UINavigationController(rootViewController: HomeControllerUsingTableView())
+        window?.rootViewController = navController*/
         
         return true
     }

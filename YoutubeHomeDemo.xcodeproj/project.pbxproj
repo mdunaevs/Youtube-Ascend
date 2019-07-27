@@ -18,6 +18,8 @@
 		50E52F7122E8F060002BA4FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50E52F7022E8F060002BA4FF /* Assets.xcassets */; };
 		50E52FAF22EA9F30002BA4FF /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52FAE22EA9F30002BA4FF /* Task.swift */; };
 		50E52FB122EA9F3D002BA4FF /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52FB022EA9F3D002BA4FF /* TaskList.swift */; };
+		50E52FBC22EC645C002BA4FF /* HomeControllerUsingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52FBB22EC645C002BA4FF /* HomeControllerUsingTableView.swift */; };
+		50E52FBE22ED0CDB002BA4FF /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E52FBD22ED0CDB002BA4FF /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		50E52F7022E8F060002BA4FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50E52FAE22EA9F30002BA4FF /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		50E52FB022EA9F3D002BA4FF /* TaskList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
+		50E52FBB22EC645C002BA4FF /* HomeControllerUsingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerUsingTableView.swift; sourceTree = "<group>"; };
+		50E52FBD22ED0CDB002BA4FF /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,8 @@
 			children = (
 				50E52F3B22E8BED0002BA4FF /* AppDelegate.swift */,
 				50E52F3D22E8BED0002BA4FF /* HomeController.swift */,
+				50E52FBD22ED0CDB002BA4FF /* HeaderView.swift */,
+				50E52FBB22EC645C002BA4FF /* HomeControllerUsingTableView.swift */,
 				50E52F6E22E8CF2D002BA4FF /* MenuBar.swift */,
 				50E52F6922E8C094002BA4FF /* TaskCell.swift */,
 				50E52FAE22EA9F30002BA4FF /* Task.swift */,
@@ -274,6 +280,8 @@
 				50E52FAF22EA9F30002BA4FF /* Task.swift in Sources */,
 				50E52F6F22E8CF2D002BA4FF /* MenuBar.swift in Sources */,
 				50E52F6A22E8C094002BA4FF /* TaskCell.swift in Sources */,
+				50E52FBC22EC645C002BA4FF /* HomeControllerUsingTableView.swift in Sources */,
+				50E52FBE22ED0CDB002BA4FF /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

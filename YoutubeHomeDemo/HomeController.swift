@@ -18,12 +18,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         Task(name: "Job fair", time: "3pm", category: .events)
         ])
     
+    let cellId = "cellId"
+    let headerId = "headerId"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*let height: CGFloat = 100
-        let bounds = self.navigationController!.navigationBar.bounds
-        navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
-        navigationItem.title = "Home"*/
     
         navigationController?.navigationBar.isTranslucent = false
         
@@ -37,9 +36,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.backgroundColor = UIColor.white
         setupMenuBar()
         
-        collectionView?.register(TaskCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.register(TaskCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
     }
     
@@ -70,6 +71,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     }
     
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 80)
@@ -79,12 +83,21 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return 0
     }
     
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        return header
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tempTasklist.listOfTasks.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 100)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! TaskCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TaskCell
         var pinnedTasks:[Task] = tempTasklist.calculatePinnedTasks()
         var currentTasks:[Task]  = tempTasklist.calculateCurrentTasks()
 //        let taskName = indexPath.section == 0 ? pinnedTasks[indexPath.row].name : currentTasks[indexPath.row].name
