@@ -115,6 +115,20 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let taskTime = indexPath.section == 0 ? incompleteTasks[indexPath.row].time : currentTasks[indexPath.row].time
         //cell.taskInfoTime.text = tempTasklist.listOfTasks[indexPath.row].time
         cell.taskInfoTime.text = taskTime
+
+        
+        if indexPath.section == 0{
+            cell.addSubview(cell.addToCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: cell.addToCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: cell.addToCurrentDayButton)
+        } else {
+            cell.addSubview(cell.removeFromCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: cell.removeFromCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: cell.removeFromCurrentDayButton)
+        }
+        
+        
+        
         
         if tempTasklist.listOfTasks[indexPath.row].category == .academic{
             cell.emojiImageView.image = UIImage(named: "textbook")

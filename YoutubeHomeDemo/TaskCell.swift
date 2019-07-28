@@ -47,13 +47,13 @@ class TaskCell: BaseCell {
         return label
     }()
     
-    let taskActionButton: UIButton = {
+    let removeFromCurrentDayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.red
         return button
     }()
     
-    let addTaskButton: UIButton = {
+    let addToCurrentDayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.orange
         return button
@@ -73,40 +73,6 @@ class TaskCell: BaseCell {
     }()
     
     
-    
-    /*let thumbnailImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.blue
-        //imageView.image = UIImage(named: "taylor_swift_blank_space")
-        return imageView
-    }()
-    
-    let userProfileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.green
-        return imageView
-    }()
-    
-    let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.lightGray
-        return view
-    }()
-    
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = UIColor.purple
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let subtitleTextView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = UIColor.red
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
-    }()*/
-    
     override func setupViews() {
         
 //        H: (Horizontal) //horizontal direction
@@ -125,14 +91,15 @@ class TaskCell: BaseCell {
         addSubview(taskInfoView)
         taskInfoView.addSubview(taskInfoName)
         taskInfoView.addSubview(taskInfoTime)
-        addSubview(taskActionButton)
+        //addSubview(taskActionButton)
         addSubview(emojiImageView)
         addSubview(separatorView)
         
-        addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]-50-[v2(30)]", views: emojiImageView, taskInfoView, taskActionButton)
+        //addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]-50-[v2(30)]", views: emojiImageView, taskInfoView, addToCurrentDayButton)
+        addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]", views: emojiImageView, taskInfoView)
         addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: emojiImageView)
         //addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: taskInfoView)
-        addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: taskActionButton)
+        //addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: addToCurrentDayButton)
         addConstraintsWithFormat(format: "H:|-10-[v0(190)]-20-[v1(20)]", views: taskInfoName, taskInfoTime)
         addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoName)
         addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoTime)
@@ -142,34 +109,6 @@ class TaskCell: BaseCell {
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
         
-        
-        
-        /*addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
-        
-        addConstraintsWithFormat(format: "H:|-16-[v0(44)]", views: userProfileImageView)
-        
-        //vertical constraints
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, userProfileImageView, separatorView)
-        
-        addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
-        
-        //top constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))
-        //left constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1, constant: 8))
-        //right constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
-        //height constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))
-        
-        //top constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 8))
-        //left constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1, constant: 8))
-        //right constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
-        //height constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))*/
         
     }
     
