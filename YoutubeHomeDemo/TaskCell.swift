@@ -47,7 +47,7 @@ class TaskCell: BaseCell {
         return label
     }()
     
-    let finishTaskButton: UIButton = {
+    let taskActionButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.red
         return button
@@ -125,15 +125,14 @@ class TaskCell: BaseCell {
         addSubview(taskInfoView)
         taskInfoView.addSubview(taskInfoName)
         taskInfoView.addSubview(taskInfoTime)
-        addSubview(finishTaskButton)
-        addSubview(addTaskButton)
+        addSubview(taskActionButton)
         addSubview(emojiImageView)
         addSubview(separatorView)
         
-        addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]-50-[v2(30)]", views: emojiImageView, taskInfoView, finishTaskButton)
+        addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]-50-[v2(30)]", views: emojiImageView, taskInfoView, taskActionButton)
         addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: emojiImageView)
         //addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: taskInfoView)
-        addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: finishTaskButton)
+        addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: taskActionButton)
         addConstraintsWithFormat(format: "H:|-10-[v0(190)]-20-[v1(20)]", views: taskInfoName, taskInfoTime)
         addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoName)
         addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoTime)

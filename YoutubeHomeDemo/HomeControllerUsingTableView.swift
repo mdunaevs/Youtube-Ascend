@@ -44,11 +44,11 @@ class HomeControllerUsingTableView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var pinnedTasks = tempTasklist.calculatePinnedTasks()
-        var dailyTasks = tempTasklist.calculateCurrentTasks()
+        let incompleteTasks = tempTasklist.calculateIncompleteTasks()
+        let dailyTasks = tempTasklist.calculateCurrentTasks()
 
         if section == 0 {
-            return pinnedTasks.count
+            return incompleteTasks.count
         }
         return dailyTasks.count
         
@@ -56,9 +56,25 @@ class HomeControllerUsingTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CustomCell
+        
+        let incompleteTasks = tempTasklist.calculateIncompleteTasks()
+        let dailyTasks = tempTasklist.calculateCurrentTasks()
 
-        cell.taskInfoName.text = String(indexPath.row + 1) + ". " + tempTasklist.listOfTasks[indexPath.row].name
-        cell.taskInfoTime.text = tempTasklist.listOfTasks[indexPath.row].time
+        
+        let name = indexPath.section == 0 ? incompleteTasks[indexPath.row].name :
+            dailyTasks[indexPath.row].name
+        
+        let time = indexPath.section == 0 ? incompleteTasks[indexPath.row].time :
+            dailyTasks[indexPath.row].time
+        
+        
+        //cell.taskInfoName.text = String(indexPath.row + 1) + ". " + tempTasklist.listOfTasks[indexPath.row].name
+        //cell.taskInfoTime.text = tempTasklist.listOfTasks[indexPath.row].time
+        
+        cell.taskInfoName.text = String(indexPath.row + 1) + ". " + name
+        cell.taskInfoTime.text = time
+        
+        
         if tempTasklist.listOfTasks[indexPath.row].category == .academic{
             cell.emojiImageView.image = UIImage(named: "textbook")
             cell.taskInfoView.backgroundColor = UIColor(named: "academicColor")!.withAlphaComponent(0.6)

@@ -15,7 +15,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         Task(name: "doctors", time: "11am", category: .health),
         Task(name: "Robotics meeting", time: "1pm", category: .social),
         Task(name: "Laundry", time: "3pm", category: .other),
-        Task(name: "Job fair", time: "3pm", category: .events)
+        Task(name: "Job fair", time: "3pm", category: .events),
+        Task(name: "Calculus HW", time: "6pm", category: .academic, pinned: true)
         ])
     
     let cellId = "cellId"
@@ -26,13 +27,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
         navigationController?.navigationBar.isTranslucent = false
         
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
+
         let overviewButton = UIButton(frame: CGRect(x: view.frame.width/2, y: view.frame.height/2, width: 50, height: 50))
         overviewButton.backgroundColor = UIColor.yellow
 
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = UIFont.systemFont(ofSize: 20)
-        navigationItem.titleView = titleLabel
+
         collectionView?.backgroundColor = UIColor.white
         setupMenuBar()
         
@@ -84,26 +83,39 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! HeaderView
+        let headerTitle = indexPath.section == 0 ? "Incomplete" : "Current"
+        header.headerSectionLabel.text = headerTitle
         return header
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tempTasklist.listOfTasks.count
+        let incompleteTasks = tempTasklist.calculateIncompleteTasks()
+        let currentTasks = tempTasklist.calculateCurrentTasks()
+        if (section == 0){
+            return incompleteTasks.count
+        }
+        return currentTasks.count
+        //return tempTasklist.listOfTasks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 100)
+        return CGSize(width: view.frame.width, height: 80)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TaskCell
-        var pinnedTasks:[Task] = tempTasklist.calculatePinnedTasks()
-        var currentTasks:[Task]  = tempTasklist.calculateCurrentTasks()
-//        let taskName = indexPath.section == 0 ? pinnedTasks[indexPath.row].name : currentTasks[indexPath.row].name
+        let incompleteTasks:[Task] = tempTasklist.calculateIncompleteTasks()
+        let currentTasks:[Task]  = tempTasklist.calculateCurrentTasks()
         
-        cell.taskInfoName.text = String(indexPath.row + 1) + ". " + tempTasklist.listOfTasks[indexPath.row].name
-        cell.taskInfoTime.text = tempTasklist.listOfTasks[indexPath.row].time
+        let taskName = indexPath.section == 0 ? incompleteTasks[indexPath.row].name : currentTasks[indexPath.row].name
+        cell.taskInfoName.text = String(indexPath.row + 1) + ". " + taskName
+        //cell.taskInfoName.text = String(indexPath.row + 1) + ". " + tempTasklist.listOfTasks[indexPath.row].name + "section: " + String(indexPath.section)
+        
+        let taskTime = indexPath.section == 0 ? incompleteTasks[indexPath.row].time : currentTasks[indexPath.row].time
+        //cell.taskInfoTime.text = tempTasklist.listOfTasks[indexPath.row].time
+        cell.taskInfoTime.text = taskTime
+        
         if tempTasklist.listOfTasks[indexPath.row].category == .academic{
             cell.emojiImageView.image = UIImage(named: "textbook")
             cell.taskInfoView.backgroundColor = UIColor(named: "academicColor")!.withAlphaComponent(0.6)

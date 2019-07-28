@@ -81,15 +81,15 @@ struct TaskList{
         }
     }
     
-    func calculatePinnedTasks() -> [Task]{
-        var pinnedTasks: [Task] = []
+    func calculateIncompleteTasks() -> [Task]{
+        var incompleteTasks: [Task] = []
         for index in 0..<self.listOfTasks.count{
             let currTask: Task = self.listOfTasks[index]
             if(currTask.pinned){
-                pinnedTasks.append(currTask)
+                incompleteTasks.append(currTask)
             }
         }
-        return pinnedTasks
+        return incompleteTasks
     }
     
     func calculateCurrentTasks() -> [Task]{
