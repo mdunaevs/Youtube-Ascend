@@ -12,13 +12,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     var tempTasklist: TaskList = TaskList(listOfTasks: [
         Task(name: "physics hw", time: "9am", category: .academic),
-        Task(name: "doctors", time: "11am", category: .health),
-        Task(name: "Robotics meeting", time: "1pm", category: .social),
-        Task(name: "Laundry", time: "3pm", category: .other),
-        Task(name: "Job fair", time: "3pm", category: .events),
+        Task(name: "dentist", time: "9am", category: .health),
+        Task(name: "party", time: "9am", category: .social),
+        Task(name: "doctors", time: "11am", category: .health, pinned: true),
+        Task(name: "Robotics meeting", time: "1pm", category: .social, pinned: true),
+        Task(name: "Laundry", time: "3pm", category: .other, pinned: true),
+        Task(name: "Job fair", time: "3pm", category: .events, pinned: true),
         Task(name: "Calculus HW", time: "6pm", category: .academic, pinned: true)
         ])
-    
     let cellId = "cellId"
     let headerId = "headerId"
     
@@ -26,7 +27,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         super.viewDidLoad()
     
         navigationController?.navigationBar.isTranslucent = false
-        
+        tempTasklist.calculateCurrentTasks()
+        tempTasklist.calculateIncompleteTasks()
 
         let overviewButton = UIButton(frame: CGRect(x: view.frame.width/2, y: view.frame.height/2, width: 50, height: 50))
         overviewButton.backgroundColor = UIColor.yellow
@@ -85,17 +87,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! HeaderView
         let headerTitle = indexPath.section == 0 ? "Incomplete" : "Current"
+        let headerAmountOfTasks = indexPath.section == 0 ? tempTasklist.incompleteTasks.count : tempTasklist.currentTasks.count
         header.headerSectionLabel.text = headerTitle
+        header.amtTasksLeftLabel.text = String(headerAmountOfTasks) + " left"
         return header
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let incompleteTasks = tempTasklist.calculateIncompleteTasks()
-        let currentTasks = tempTasklist.calculateCurrentTasks()
+        //let incompleteTasks = tempTasklist.calculateIncompleteTasks()
+        //let currentTasks = tempTasklist.calculateCurrentTasks()
         if (section == 0){
-            return incompleteTasks.count
+            return tempTasklist.incompleteTasks.count
         }
-        return currentTasks.count
+        return tempTasklist.currentTasks.count
         //return tempTasklist.listOfTasks.count
     }
     
@@ -105,41 +109,29 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TaskCell
-        let incompleteTasks:[Task] = tempTasklist.calculateIncompleteTasks()
-        let currentTasks:[Task]  = tempTasklist.calculateCurrentTasks()
+        //let incompleteTasks:[Task] = tempTasklist.calculateIncompleteTasks()
+        //let currentTasks:[Task]  = tempTasklist.calculateCurrentTasks()
         
-        let taskName = indexPath.section == 0 ? incompleteTasks[indexPath.row].name : currentTasks[indexPath.row].name
-        cell.taskInfoName.text = String(indexPath.row + 1) + ". " + taskName
+        let taskName = indexPath.section == 0 ? tempTasklist.incompleteTasks[indexPath.row].name : tempTasklist.currentTasks[indexPath.row].name
+        cell.taskInfoName.text = String(indexPath.row + 1) + ". " + taskName + " section " + String(indexPath.section) + " row" + String(indexPath.row)
         //cell.taskInfoName.text = String(indexPath.row + 1) + ". " + tempTasklist.listOfTasks[indexPath.row].name + "section: " + String(indexPath.section)
         
-        let taskTime = indexPath.section == 0 ? incompleteTasks[indexPath.row].time : currentTasks[indexPath.row].time
+        let taskTime = indexPath.section == 0 ? tempTasklist.incompleteTasks[indexPath.row].time : tempTasklist.currentTasks[indexPath.row].time
         //cell.taskInfoTime.text = tempTasklist.listOfTasks[indexPath.row].time
         cell.taskInfoTime.text = taskTime
-
         
-        if indexPath.section == 0{
-            cell.addSubview(cell.addToCurrentDayButton)
-            cell.addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: cell.addToCurrentDayButton)
-            cell.addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: cell.addToCurrentDayButton)
-        } else {
-            cell.addSubview(cell.removeFromCurrentDayButton)
-            cell.addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: cell.removeFromCurrentDayButton)
-            cell.addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: cell.removeFromCurrentDayButton)
-        }
+        let taskCat = indexPath.section == 0 ? tempTasklist.incompleteTasks[indexPath.row].category : tempTasklist.currentTasks[indexPath.row].category
         
-        
-        
-        
-        if tempTasklist.listOfTasks[indexPath.row].category == .academic{
+        if taskCat == .academic{
             cell.emojiImageView.image = UIImage(named: "textbook")
             cell.taskInfoView.backgroundColor = UIColor(named: "academicColor")!.withAlphaComponent(0.6)
-        } else if tempTasklist.listOfTasks[indexPath.row].category == .social{
+        } else if taskCat == .social{
             cell.emojiImageView.image = UIImage(named: "hands")
             cell.taskInfoView.backgroundColor = UIColor(named: "socialColor")!.withAlphaComponent(0.6)
-        } else if tempTasklist.listOfTasks[indexPath.row].category == .health{
+        } else if taskCat == .health{
             cell.emojiImageView.image = UIImage(named: "heart")
             cell.taskInfoView.backgroundColor = UIColor(named: "healthColor")!.withAlphaComponent(0.6)
-        } else if tempTasklist.listOfTasks[indexPath.row].category == .events{
+        } else if taskCat == .events{
             cell.emojiImageView.image = UIImage(named: "calander")
             cell.taskInfoView.backgroundColor = UIColor(named: "eventsColor")!.withAlphaComponent(0.6)
         } else {
@@ -147,18 +139,86 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.taskInfoView.backgroundColor = UIColor(named: "otherColor")!.withAlphaComponent(0.6)
         }
         
+        if indexPath.section == 0{
+            cell.addSubview(cell.addToCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: cell.addToCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: cell.addToCurrentDayButton)
+            cell.addToCurrentDayButton.addTarget(self, action: #selector(moveTask(_:)), for: .touchUpInside)
+            
+        } else {
+            cell.addSubview(cell.removeFromCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: cell.removeFromCurrentDayButton)
+            cell.addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: cell.removeFromCurrentDayButton)
+            cell.removeFromCurrentDayButton.addTarget(self, action: #selector(finishTask(_:)), for: .touchUpInside)
+        }
+        
         return cell
     }
+    
+    
+    @objc func finishTask(_ sender: UIButton){
+        let point = sender.convert(CGPoint.zero, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: point) else {
+            return
+        }
+        let task = tempTasklist.currentTasks[indexPath.row]
+        tempTasklist.removeTask(task: task)
+        tempTasklist.calculateCurrentTasks()
+        tempTasklist.calculateIncompleteTasks()
+        collectionView.deleteItems(at: [indexPath])
+        
+        // prep to send
+    }
+    
+    @objc func moveTask(_ sender: UIButton){
+        let point = sender.convert(CGPoint.zero, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: point) else {
+            return
+        }
+        let task = tempTasklist.incompleteTasks[indexPath.row]
+        let tempTask = Task(name: task.name, time: task.time, category: task.category)
+        tempTasklist.removeTask(task: task)
+        tempTasklist.calculateCurrentTasks()
+        tempTasklist.calculateIncompleteTasks()
+        collectionView.deleteItems(at: [indexPath])
+        
+        tempTasklist.addTask(task: tempTask)
+        tempTasklist.calculateCurrentTasks()
+        tempTasklist.calculateIncompleteTasks()
+        collectionView?.reloadData()
+        
+        
+        
+        
+       /* let point = sender.convert(CGPoint.zero, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: point) else {
+            return
+        }
+        
+        let task = tempTasklist.incompleteTasks[indexPath.row]
+        print(task)
+        let tempTask = Task(name: task.name, time: task.time, category: task.category)
+        print(tempTask)
+        tempTasklist.removeTask(task: task)
+        
+        tempTasklist.calculateCurrentTasks()
+        tempTasklist.calculateIncompleteTasks()
+        tempTasklist.currentTasks.append(tempTask)
+        collectionView?.reloadData()
+        //let insertedIndexPath = IndexPath(item: tempTasklist.listOfTasks.count, section: 1)
+
+        //collectionView?.insertItems(at: [insertedIndexPath])*/
+    }
+    
+    //let tempTask = Task(name: task.name, time: task.time, category: task.category)
+    //print(tempTask)
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = "Header"
-        return label
-    }
+
+    
     
 
 }

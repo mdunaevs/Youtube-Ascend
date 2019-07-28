@@ -17,6 +17,8 @@ struct TaskList{
     var amtOfHealthTasks: Int = 0
     var amtOfEventsTasks: Int = 0
     var amtOfOtherTasks: Int = 0
+    var incompleteTasks: [Task] = []
+    var currentTasks: [Task] = []
     
     
     init(listOfTasks: [Task]){
@@ -76,12 +78,24 @@ struct TaskList{
     mutating func removeTask(task: Task){
         for index in (0..<self.listOfTasks.count).reversed(){
             if(task.name == self.listOfTasks[index].name && task.category == self.listOfTasks[index].category && task.time == self.listOfTasks[index].time){
+                if(task.category == .academic){
+                    self.amtOfAcademicTasks -= 1
+                } else if(task.category == .social){
+                    self.amtOfSocialTasks -= 1
+                } else if(task.category == .health){
+                    self.amtOfHealthTasks -= 1
+                } else if(task.category == .events){
+                    self.amtOfEventsTasks -= 1
+                } else {
+                    self.amtOfOtherTasks -= 1
+                }
                 self.listOfTasks.remove(at: index)
+                
             }
         }
     }
     
-    func calculateIncompleteTasks() -> [Task]{
+    mutating func calculateIncompleteTasks(){
         var incompleteTasks: [Task] = []
         for index in 0..<self.listOfTasks.count{
             let currTask: Task = self.listOfTasks[index]
@@ -89,10 +103,10 @@ struct TaskList{
                 incompleteTasks.append(currTask)
             }
         }
-        return incompleteTasks
+        self.incompleteTasks = incompleteTasks
     }
     
-    func calculateCurrentTasks() -> [Task]{
+    mutating func calculateCurrentTasks(){
         var currentTasks: [Task] = []
         for index in 0..<self.listOfTasks.count{
             let currTask: Task = self.listOfTasks[index]
@@ -100,8 +114,16 @@ struct TaskList{
                 currentTasks.append(currTask)
             }
         }
-        return currentTasks
+        self.currentTasks = currentTasks
     }
     
+    func findTaskInIncomplete(task: Task) -> Int{
+        for index in 0..<self.incompleteTasks.count{
+            if self.incompleteTasks[index].name == task.name && self.incompleteTasks[index].time == task.time && self.incompleteTasks[index].category == task.category{
+                return index
+            }
+        }
+        return -1
+    }
     
 }

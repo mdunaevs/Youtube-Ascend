@@ -12,6 +12,8 @@ class BaseCell: UICollectionViewCell{
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        
+        
     }
     
     func setupViews(){
@@ -50,12 +52,16 @@ class TaskCell: BaseCell {
     let removeFromCurrentDayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.red
+        button.setImage(UIImage(named: "square"), for: .normal)
         return button
     }()
+    
     
     let addToCurrentDayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.orange
+        button.setImage(UIImage(named: "plus"), for: .normal)
+        
         return button
     }()
     
@@ -112,9 +118,6 @@ class TaskCell: BaseCell {
         
     }
     
-    
-    
-
 }
 
 

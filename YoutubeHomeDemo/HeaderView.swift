@@ -23,10 +23,19 @@ class HeaderView: UICollectionReusableView {
         return label
     }()
     
+    let amtTasksLeftLabel: UILabel = {
+        let label = UILabel()
+        label.font = label.font.withSize(15)
+        //label.backgroundColor = UIColor.green
+        return label
+    }()
+    
     func setupHeader(){
         addSubview(headerSectionLabel)
-        addConstraintsWithFormat(format: "H:|-16-[v0(300)]", views: headerSectionLabel)
+        addSubview(amtTasksLeftLabel)
+        addConstraintsWithFormat(format: "H:|-16-[v0(150)]-193-[v1(50)]", views: headerSectionLabel, amtTasksLeftLabel)
         addConstraintsWithFormat(format: "V:|-40-[v0(30)]", views: headerSectionLabel)
+        addConstraintsWithFormat(format: "V:|-40-[v0(30)]", views: amtTasksLeftLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {

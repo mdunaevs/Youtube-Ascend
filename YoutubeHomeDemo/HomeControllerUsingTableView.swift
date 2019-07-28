@@ -47,11 +47,11 @@ class HomeControllerUsingTableView: UITableViewController {
         let incompleteTasks = tempTasklist.calculateIncompleteTasks()
         let dailyTasks = tempTasklist.calculateCurrentTasks()
 
-        if section == 0 {
-            return incompleteTasks.count
-        }
-        return dailyTasks.count
-        
+        //if section == 0 {
+        //    return incompleteTasks.count
+       // }
+       // return dailyTasks.count
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,18 +61,18 @@ class HomeControllerUsingTableView: UITableViewController {
         let dailyTasks = tempTasklist.calculateCurrentTasks()
 
         
-        let name = indexPath.section == 0 ? incompleteTasks[indexPath.row].name :
-            dailyTasks[indexPath.row].name
+        //let name = indexPath.section == 0 ? incompleteTasks[indexPath.row].name :
+           // dailyTasks[indexPath.row].name
         
-        let time = indexPath.section == 0 ? incompleteTasks[indexPath.row].time :
-            dailyTasks[indexPath.row].time
+        //let time = indexPath.section == 0 ? incompleteTasks[indexPath.row].time :
+            //dailyTasks[indexPath.row].time
         
         
         //cell.taskInfoName.text = String(indexPath.row + 1) + ". " + tempTasklist.listOfTasks[indexPath.row].name
         //cell.taskInfoTime.text = tempTasklist.listOfTasks[indexPath.row].time
         
-        cell.taskInfoName.text = String(indexPath.row + 1) + ". " + name
-        cell.taskInfoTime.text = time
+        //cell.taskInfoName.text = String(indexPath.row + 1) + ". " + name
+        //cell.taskInfoTime.text = time
         
         
         if tempTasklist.listOfTasks[indexPath.row].category == .academic{
