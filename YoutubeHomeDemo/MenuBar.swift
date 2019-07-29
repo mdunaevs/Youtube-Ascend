@@ -39,6 +39,13 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout{
         return label
     }()
     
+    let editButton: UIButton = {
+        let button = UIButton()
+        //button.backgroundColor = UIColor.yellow
+        button.setTitle("Edit", for: .normal)
+        return button
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,9 +55,11 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout{
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
         collectionView.addSubview(headerTaskLabel)
         collectionView.addSubview(overviewLabel)
-        addConstraintsWithFormat(format: "H:|-14-[v0(150)]-20-[v1(50)]", views: headerTaskLabel, overviewLabel)
+        collectionView.addSubview(editButton)
+        addConstraintsWithFormat(format: "H:|-14-[v0(150)]-20-[v1(50)]-125-[v2(50)]", views: headerTaskLabel, overviewLabel, editButton)
         addConstraintsWithFormat(format: "V:|[v0(50)]|", views: headerTaskLabel)
         addConstraintsWithFormat(format: "V:|[v0(20)]", views: overviewLabel)
+        addConstraintsWithFormat(format: "V:|-15-[v0(20)]", views: editButton)
     }
     
     required init?(coder aDecoder: NSCoder) {

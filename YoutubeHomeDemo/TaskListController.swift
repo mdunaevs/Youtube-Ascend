@@ -38,14 +38,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         navigationController?.navigationBar.isTranslucent = false
         
+        
+        
         // Calculates the information for the which tasks belong in the sections of the task lists
         tempTasklist.calculateCurrentTasks()
         tempTasklist.calculateIncompleteTasks()
 
         // Setup for button to take user to homw screen
-        let overviewButton = UIButton(frame: CGRect(x: view.frame.width/2, y: view.frame.height/2, width: 50, height: 50))
-        overviewButton.backgroundColor = UIColor.yellow
-
+        setupTopBar()
 
         collectionView?.backgroundColor = UIColor.white
         setupMenuBar()
@@ -57,6 +57,27 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+    }
+    
+    // Button which segues to home screen when clicked
+    let overviewButton: UIButton = {
+        let button = UIButton()
+        //button.backgroundColor = UIColor.yellow
+        button.setImage(UIImage(named: "upwards-2sided"), for: .normal)
+        return button
+    }()
+    
+    
+    // Sets up the top section of the navigation bar
+    private func setupTopBar(){
+        navigationController?.navigationBar.addSubview(overviewButton)
+        navigationController?.navigationBar.addConstraintsWithFormat(format: "H:|-182-[v0(50)]", views: overviewButton)
+        navigationController?.navigationBar.addConstraintsWithFormat(format: "V:|-8-[v0(50)]", views: overviewButton)
+        overviewButton.addTarget(self, action: #selector(segueToHomeScreen(_:)), for: .touchUpInside)
+    }
+    
+    @objc func segueToHomeScreen(_ sender: UIButton){
+        performSegue(withIdentifier: "segue1", sender: nil)
     }
     
     // Instance of the custom menu bar
@@ -85,8 +106,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         view.addConstraintsWithFormat(format: "V:[v0(50)]", views: menuBar)
 
         menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        
     }
-    
+
     // No line spacing between the sections of the navigation bar
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -101,7 +123,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! HeaderView
         let headerTitle = indexPath.section == 0 ? "Incomplete" : "Current"
-        let headerAmountOfTasks = indexPath.section == 0 ? tempTasklist.incompleteTasks.count : tempTasklist.currentTasks.count
+        //let headerAmountOfTasks = indexPath.section == 0 ? tempTasklist.incompleteTasks.count : tempTasklist.currentTasks.count
         header.headerSectionLabel.text = headerTitle
         //header.amtTasksLeftLabel.text = String(headerAmountOfTasks) + " left"
         return header
@@ -181,6 +203,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         return cell
     }
+    
+    
+    
     
     // Removes task from task list and sends it to the social timeline
     @objc func finishTask(_ sender: UIButton){

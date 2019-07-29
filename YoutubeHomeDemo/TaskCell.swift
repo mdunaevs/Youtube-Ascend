@@ -56,7 +56,7 @@ class TaskCell: BaseCell {
     // Button for cells in the current section
     let removeFromCurrentDayButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.red
+        //button.backgroundColor = UIColor.red
         button.setImage(UIImage(named: "square"), for: .normal)
         return button
     }()
@@ -64,9 +64,8 @@ class TaskCell: BaseCell {
     // Button for cells in the incomplete section
     let addToCurrentDayButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.orange
+        //button.backgroundColor = UIColor.orange
         button.setImage(UIImage(named: "plus"), for: .normal)
-        
         return button
     }()
     

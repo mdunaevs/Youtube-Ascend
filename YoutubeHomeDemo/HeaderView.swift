@@ -36,7 +36,7 @@ class HeaderView: UICollectionReusableView {
         addSubview(headerSectionLabel)
         //addSubview(amtTasksLeftLabel)
         //addConstraintsWithFormat(format: "H:|-16-[v0(150)]-193-[v1(50)]", views: headerSectionLabel, amtTasksLeftLabel)
-        addConstraintsWithFormat(format: "H:|-16-[v0(150)]]", views: headerSectionLabel)
+        addConstraintsWithFormat(format: "H:|-16-[v0(150)]", views: headerSectionLabel)
         addConstraintsWithFormat(format: "V:|-40-[v0(30)]", views: headerSectionLabel)
         //addConstraintsWithFormat(format: "V:|-40-[v0(30)]", views: amtTasksLeftLabel)
     }
