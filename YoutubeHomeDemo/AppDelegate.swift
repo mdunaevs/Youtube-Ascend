@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         let layout = UICollectionViewFlowLayout()
         
-        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        window?.rootViewController = UINavigationController(rootViewController: TaskListController(collectionViewLayout: layout))
         
        
         UINavigationBar.appearance().barTintColor = UIColor(red: 230/255, green: 32/255, blue: 32/255, alpha: 1)

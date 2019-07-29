@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class TaskListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var tempTasklist: TaskList = TaskList(listOfTasks: [
         Task(name: "physics hw", time: "9am", category: .academic),
@@ -77,7 +77,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     @objc func segueToHomeScreen(_ sender: UIButton){
-        performSegue(withIdentifier: "segue1", sender: nil)
+      
+        let controller = TestViewController()
+        present(controller, animated: true, completion: nil)
     }
     
     // Instance of the custom menu bar
@@ -142,7 +144,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             return tempTasklist.incompleteTasks.count
         }
         return tempTasklist.currentTasks.count
-        //return tempTasklist.listOfTasks.count
     }
     
     
@@ -196,6 +197,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
         } else {
             cell.addSubview(cell.removeFromCurrentDayButton)
+            cell.addToCurrentDayButton.isHidden = true
             cell.addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: cell.removeFromCurrentDayButton)
             cell.addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: cell.removeFromCurrentDayButton)
             cell.removeFromCurrentDayButton.addTarget(self, action: #selector(finishTask(_:)), for: .touchUpInside)
@@ -231,7 +233,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             return
         }
         let task = tempTasklist.incompleteTasks[indexPath.row]
-        let tempTask = Task(name: task.name, time: task.time, category: task.category)
+        let tempTask = Task(name: task.name, time: task.time, category: task.category, pinned: false)
         tempTasklist.removeTask(task: task)
         tempTasklist.calculateCurrentTasks()
         tempTasklist.calculateIncompleteTasks()

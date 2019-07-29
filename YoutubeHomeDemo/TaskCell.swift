@@ -15,6 +15,10 @@ class BaseCell: UICollectionViewCell{
         
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
     func setupViews(){
         
     }
