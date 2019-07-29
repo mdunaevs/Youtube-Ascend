@@ -14,7 +14,7 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout{
         return 0
     }
     
-    
+    // Creates element for MenuBar
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -60,25 +60,3 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout{
 }
 
 
-class MenuCell: BaseCell{
-    
-    let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "home (1)")
-        return iv
-    }()
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        addSubview(imageView)
-        addConstraintsWithFormat(format: "H:[v0(28)]", views: imageView)
-        addConstraintsWithFormat(format: "V:[v0(28)]", views: imageView)
-        
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
-        //backgroundColor = UIColor.yellow
-    }
-    
-    
-}

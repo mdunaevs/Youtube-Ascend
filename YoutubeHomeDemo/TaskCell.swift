@@ -13,7 +13,6 @@ class BaseCell: UICollectionViewCell{
         super.init(frame: frame)
         setupViews()
         
-        
     }
     
     func setupViews(){
@@ -27,6 +26,9 @@ class BaseCell: UICollectionViewCell{
 
 class TaskCell: BaseCell {
     
+    // Elements for the cell view
+    
+    // Subview which contains information regarding name and time of a task
     let taskInfoView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.purple.withAlphaComponent(0.3)
@@ -34,6 +36,7 @@ class TaskCell: BaseCell {
         return view
     }()
     
+    // Subview of taskInfoView which will display the task name
     let taskInfoName: UILabel = {
         let label = UILabel()
         //label.backgroundColor = UIColor.yellow
@@ -41,6 +44,7 @@ class TaskCell: BaseCell {
         return label
     }()
     
+    // Subview of taskInfoView which will display the task time
     let taskInfoTime: UILabel = {
         let label = UILabel()
         //label.backgroundColor = UIColor.blue
@@ -49,6 +53,7 @@ class TaskCell: BaseCell {
         return label
     }()
     
+    // Button for cells in the current section
     let removeFromCurrentDayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.red
@@ -56,7 +61,7 @@ class TaskCell: BaseCell {
         return button
     }()
     
-    
+    // Button for cells in the incomplete section
     let addToCurrentDayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.orange
@@ -65,6 +70,7 @@ class TaskCell: BaseCell {
         return button
     }()
     
+    // Displays emoji based on category type
     let emojiImageView: UIImageView = {
         let imageView = UIImageView()
         //imageView.backgroundColor = UIColor.green
@@ -97,25 +103,16 @@ class TaskCell: BaseCell {
         addSubview(taskInfoView)
         taskInfoView.addSubview(taskInfoName)
         taskInfoView.addSubview(taskInfoTime)
-        //addSubview(taskActionButton)
         addSubview(emojiImageView)
         addSubview(separatorView)
         
-        //addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]-50-[v2(30)]", views: emojiImageView, taskInfoView, addToCurrentDayButton)
         addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]", views: emojiImageView, taskInfoView)
         addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: emojiImageView)
-        //addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: taskInfoView)
-        //addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: addToCurrentDayButton)
         addConstraintsWithFormat(format: "H:|-10-[v0(190)]-20-[v1(20)]", views: taskInfoName, taskInfoTime)
         addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoName)
         addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoTime)
-        
-        
         addConstraintsWithFormat(format: "V:|-25-[v0(30)]-24-[v1(1)]", views: taskInfoView, separatorView)
-        
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
-        
-        
     }
     
 }
