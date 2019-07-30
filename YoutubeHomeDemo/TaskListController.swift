@@ -78,8 +78,8 @@ class TaskListController: UICollectionViewController, UICollectionViewDelegateFl
     
     @objc func segueToHomeScreen(_ sender: UIButton){
       
-        let controller = TestViewController()
-        present(controller, animated: true, completion: nil)
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        present(controller!, animated: true, completion: nil)
     }
     
     // Instance of the custom menu bar
