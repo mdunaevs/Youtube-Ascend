@@ -126,4 +126,14 @@ struct TaskList{
         return -1
     }
     
+    func findTask(task: Task) -> Int{
+        for index in 0..<listOfTasks.count{
+            let currTask = listOfTasks[index]
+            if(currTask.name == listOfTasks[index].name && currTask.category == listOfTasks[index].category && currTask.time == listOfTasks[index].time){
+                return index
+            }
+        }
+        return -1
+    }
+    
 }

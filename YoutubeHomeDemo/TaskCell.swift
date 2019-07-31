@@ -35,8 +35,8 @@ class TaskCell: BaseCell {
     // Subview which contains information regarding name and time of a task
     let taskInfoView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.purple.withAlphaComponent(0.3)
-        view.layer.borderWidth = 1
+        //view.backgroundColor = UIColor.purple.withAlphaComponent(0.3)
+        //view.layer.borderWidth = 1
         return view
     }()
     
@@ -53,12 +53,13 @@ class TaskCell: BaseCell {
         let label = UILabel()
         //label.backgroundColor = UIColor.blue
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontSizeToFitWidth = true
+        //label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
     // Button for cells in the current section
-    let removeFromCurrentDayButton: UIButton = {
+    let finishFromCurrentDayButton: UIButton = {
         let button = UIButton()
         //button.backgroundColor = UIColor.red
         button.setImage(UIImage(named: "square"), for: .normal)
@@ -70,6 +71,13 @@ class TaskCell: BaseCell {
         let button = UIButton()
         //button.backgroundColor = UIColor.orange
         button.setImage(UIImage(named: "plus"), for: .normal)
+        return button
+    }()
+    
+    let removeFromCurrentDayButton: UIButton = {
+        let button = UIButton()
+        //button.backgroundColor = UIColor.orange
+        button.setImage(UIImage(named: "remove"), for: .normal)
         return button
     }()
     
@@ -105,18 +113,77 @@ class TaskCell: BaseCell {
         
         addSubview(taskInfoView)
         taskInfoView.addSubview(taskInfoName)
-        taskInfoView.addSubview(taskInfoTime)
+        addSubview(taskInfoTime)
         addSubview(emojiImageView)
         addSubview(separatorView)
+        addSubview(addToCurrentDayButton)
+        addSubview(finishFromCurrentDayButton)
+        addSubview(removeFromCurrentDayButton)
         
-        addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(250)]", views: emojiImageView, taskInfoView)
+        addConstraintsWithFormat(format: "H:|-22-[v0(30)]-10-[v1(230)]-10-[v2(40)]", views: emojiImageView, taskInfoView, taskInfoTime)
         addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: emojiImageView)
-        addConstraintsWithFormat(format: "H:|-10-[v0(190)]-20-[v1(20)]", views: taskInfoName, taskInfoTime)
+        //addConstraintsWithFormat(format: "H:|-10-[v0(180)]-20-[v1(40)]", views: taskInfoName, taskInfoTime)
+        addConstraintsWithFormat(format: "H:|-10-[v0(180)]", views: taskInfoName)
         addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoName)
-        addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoTime)
+        //addConstraintsWithFormat(format: "V:|-5-[v0(20)]", views: taskInfoTime)
+        addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: taskInfoTime)
         addConstraintsWithFormat(format: "V:|-25-[v0(30)]-24-[v1(1)]", views: taskInfoView, separatorView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
+        
+        addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: addToCurrentDayButton)
+        addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: addToCurrentDayButton)
+        
+        addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: finishFromCurrentDayButton)
+        addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: finishFromCurrentDayButton)
+        
+        addConstraintsWithFormat(format: "V:|-25-[v0(30)]", views: removeFromCurrentDayButton)
+        addConstraintsWithFormat(format: "H:|-362-[v0(30)]", views: removeFromCurrentDayButton)
+        
+        hideRemove()
     }
+    
+    func setTaskName(taskName: String){
+        taskInfoName.text = taskName
+    }
+    
+    func setTaskTime(taskTime: String){
+        taskInfoTime.text = taskTime
+    }
+    
+    func setEmojiImage(imageName: String){
+        emojiImageView.image = UIImage(named: imageName)
+    }
+    
+    func setTaskInfoBackground(categoryColor: String){
+        taskInfoView.backgroundColor = UIColor(named: categoryColor)!.withAlphaComponent(0.6)
+    }
+    
+    func hideAdd(){
+        addToCurrentDayButton.isHidden = true
+    }
+    
+    func showAdd(){
+        addToCurrentDayButton.isHidden = false
+    }
+    
+    func hideFinish(){
+        finishFromCurrentDayButton.isHidden = true
+    }
+    
+    func showFinish(){
+        finishFromCurrentDayButton.isHidden = false
+    }
+    
+    func hideRemove(){
+        removeFromCurrentDayButton.isHidden = true
+    }
+    
+    func showRemove(){
+        removeFromCurrentDayButton.isHidden = false
+    }
+    
+    
+    
     
 }
 

@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UINavigationController(rootViewController: TaskListController(collectionViewLayout: layout))
         
        
-        UINavigationBar.appearance().barTintColor = UIColor(red: 230/255, green: 32/255, blue: 32/255, alpha: 1)
+        //UINavigationBar.appearance().barTintColor = UIColor(red: 230/255, green: 32/255, blue: 32/255, alpha: 1)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 91/255, green: 185/255, blue: 235/255, alpha: 1)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
